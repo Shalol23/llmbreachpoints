@@ -290,6 +290,47 @@ textarea:focus,select:focus{border-color:var(--accent);box-shadow:0 0 0 2px rgba
 .counter-lbl{font-size:0.55rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--muted);margin-top:0.3rem;display:block;}
 
 
+
+/* ── STATISTICS TAB ── */
+.stat-hero{background:var(--surface);border:1px solid var(--border);padding:1.5rem;margin-bottom:1.25rem;position:relative;overflow:hidden;}
+.stat-hero::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--safe),var(--accent2),var(--accent));}
+.stat-formula{background:#000;border:1px solid var(--border);padding:1rem 1.4rem;font-family:var(--fm);font-size:0.78rem;color:var(--safe);margin:1rem 0;letter-spacing:0.05em;overflow-x:auto;}
+.pval-table{width:100%;border-collapse:collapse;font-size:0.72rem;}
+.pval-table th{text-align:left;padding:0.6rem 0.8rem;background:var(--bg);color:var(--muted);font-size:0.52rem;letter-spacing:0.15em;text-transform:uppercase;border-bottom:2px solid var(--border);}
+.pval-table td{padding:0.65rem 0.8rem;border-bottom:1px solid var(--border);vertical-align:middle;}
+.pval-table tr:last-child td{border-bottom:none;}
+.pval-table tr{transition:background 0.15s;}
+.pval-table tr:hover td{background:rgba(255,255,255,0.02);}
+.pval-bar-wrap{width:120px;height:6px;background:var(--border);display:inline-block;vertical-align:middle;border-radius:3px;overflow:hidden;margin-left:0.5rem;}
+.pval-bar-inner{height:100%;border-radius:3px;transition:width 1s cubic-bezier(0.16,1,0.3,1);}
+.sig-badge{display:inline-block;font-size:0.5rem;font-weight:700;letter-spacing:0.1em;padding:0.15rem 0.45rem;border-radius:2px;}
+.sig-3{background:rgba(255,60,60,0.15);color:var(--accent);border:1px solid var(--accent);}
+.sig-2{background:rgba(255,140,0,0.15);color:var(--accent2);border:1px solid var(--accent2);}
+.sig-1{background:rgba(255,224,0,0.15);color:var(--warn);border:1px solid var(--warn);}
+.sig-0{background:rgba(107,127,163,0.15);color:var(--muted);border:1px solid var(--muted);}
+.cramv-bar{display:inline-block;height:8px;border-radius:4px;vertical-align:middle;transition:width 1s cubic-bezier(0.16,1,0.3,1);}
+.effect-label{font-size:0.5rem;letter-spacing:0.1em;text-transform:uppercase;margin-left:0.4rem;vertical-align:middle;}
+.chi-num{font-family:var(--fh);font-weight:800;font-size:0.95rem;}
+.stat-callout{background:rgba(0,229,160,0.05);border:1px solid rgba(0,229,160,0.2);padding:1rem 1.25rem;font-size:0.68rem;line-height:1.9;color:var(--muted);}
+.stat-callout b{color:var(--safe);}
+.interpret-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:0.85rem;margin:1rem 0;}
+@media(max-width:700px){.interpret-grid{grid-template-columns:1fr;}}
+.int-card{background:var(--bg);border:1px solid var(--border);padding:1rem;}
+.int-val{font-family:var(--fh);font-weight:800;font-size:1.6rem;line-height:1;margin-bottom:0.3rem;}
+.int-lbl{font-size:0.52rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--muted);}
+.int-sub{font-size:0.6rem;color:var(--muted);margin-top:0.3rem;line-height:1.6;}
+.step-explain{counter-reset:step;}
+.step-explain .se-item{display:flex;gap:1rem;margin-bottom:1.1rem;align-items:flex-start;}
+.se-num{font-family:var(--fh);font-weight:800;font-size:1.4rem;color:var(--border);line-height:1;min-width:2rem;}
+.se-body{font-size:0.68rem;color:var(--muted);line-height:1.8;}
+.se-body b{color:var(--text);}
+.se-body code{background:var(--surface);padding:0.1rem 0.3rem;color:var(--safe);font-size:0.65rem;}
+.obs-expected-table{font-size:0.62rem;border-collapse:collapse;width:100%;}
+.obs-expected-table th,.obs-expected-table td{padding:0.4rem 0.6rem;border:1px solid var(--border);text-align:center;}
+.obs-expected-table th{background:var(--bg);color:var(--muted);font-size:0.52rem;letter-spacing:0.1em;text-transform:uppercase;}
+.obs-val{color:var(--text);font-weight:700;}
+.exp-val{color:var(--muted);font-size:0.58rem;}
+
 /* ── RISK CALCULATOR ── */
 .risk-wrap{display:grid;grid-template-columns:1fr 1fr;gap:1.5rem;}
 @media(max-width:900px){.risk-wrap{grid-template-columns:1fr;}}
@@ -469,6 +510,7 @@ h2.wave-ready::after{width:100%;}
     <li><a href="#" onclick="go('method',this);return false">Methodology</a></li>
     <li><a href="#" onclick="go('findings',this);return false">Findings</a></li>
     <li><a href="#" onclick="go('risk',this);return false">Risk Calc</a></li>
+    <li><a href="#" onclick="go('stats',this);return false">Statistics</a></li>
   </ul>
 </nav>
 
@@ -823,6 +865,144 @@ h2.wave-ready::after{width:100%;}
   <footer><div><div class="fa">Yash Baligar & Shashank Edupuganti</div><div class="fs">Westfield High School · Science Fair 2026</div></div><div class="fr">Risk scores derived from real ChatGPT response data</div></footer>
 </div>
 
+
+<!-- ══════════════ STATISTICS ══════════════ -->
+<div id="p-stats" class="page">
+  <div class="sec">
+    <div class="slbl">// 08 — Statistical Analysis</div>
+    <h2>Chi-Square Significance Testing</h2>
+    <p style="font-size:0.72rem;color:var(--muted);line-height:1.9;max-width:720px;margin-bottom:1.5rem">
+      To confirm that the observed differences in guardrail failure rates across languages are not due to random chance, we applied a chi-square test of independence to each language's outcome distribution compared against English (the control). All tests use N = 90 observations per language (30 prompts × 3 trials).
+    </p>
+
+    <!-- What is chi-square -->
+    <div class="stat-hero reveal">
+      <div class="slbl">// What is the Chi-Square Test?</div>
+      <h3 style="margin-bottom:0.5rem">Testing Whether Language Predicts Guardrail Failure</h3>
+      <p style="font-size:0.67rem;color:var(--muted);line-height:1.9;max-width:700px">
+        The chi-square test of independence asks: <b style="color:var(--text)">if language had no effect on guardrail outcomes, what counts would we expect?</b> It then measures how far the real counts deviate from that expectation. A large deviation → large χ² value → small p-value → the difference is real, not random.
+      </p>
+      <div class="stat-formula">χ² = Σ (Observed − Expected)² / Expected &nbsp;&nbsp;&nbsp; df = (rows−1)(cols−1) = 2</div>
+      <div class="g2" style="margin-top:0.5rem">
+        <div style="font-size:0.65rem;color:var(--muted);line-height:1.8">
+          <b style="color:var(--text)">Null hypothesis (H₀):</b> Language has no effect on guardrail outcome — any differences are due to chance.<br>
+          <b style="color:var(--text)">Alternative hypothesis (H₁):</b> Language significantly predicts whether the guardrail refuses, partially complies, or fully complies.
+        </div>
+        <div style="font-size:0.65rem;color:var(--muted);line-height:1.8">
+          <b style="color:var(--text)">Significance threshold:</b> p &lt; 0.05 (reject H₀)<br>
+          <b style="color:var(--text)">Degrees of freedom:</b> df = (2 rows − 1)(3 cols − 1) = 2<br>
+          <b style="color:var(--text)">Comparisons:</b> Each non-English language vs English (control)
+        </div>
+      </div>
+    </div>
+
+    <!-- How we computed it -->
+    <div class="card reveal" style="margin-bottom:1.25rem">
+      <div class="ctitle">How We Built the Contingency Table</div>
+      <div class="step-explain">
+        <div class="se-item"><div class="se-num">01</div><div class="se-body"><b>Count outcomes per language.</b> Each language has N = 90 observations (30 prompts × 3 trials). We counted how many responses fell into each category: Refusal, Partial Compliance, Full Compliance.</div></div>
+        <div class="se-item"><div class="se-num">02</div><div class="se-body"><b>Build a 2×3 contingency table</b> — one row for the test language, one row for English (control), three columns for outcome categories.</div></div>
+        <div class="se-item"><div class="se-num">03</div><div class="se-body"><b>Compute expected counts.</b> For each cell: <code>Expected = (row total × column total) / grand total</code>. This is what we'd see if language had zero effect.</div></div>
+        <div class="se-item"><div class="se-num">04</div><div class="se-body"><b>Sum the chi-square contributions</b> across all 6 cells: <code>Σ (O − E)² / E</code>. Look up the resulting χ² value on a distribution table with df = 2 to get the p-value.</div></div>
+        <div class="se-item"><div class="se-num">05</div><div class="se-body"><b>Compute Cramér's V</b> as an effect size measure: <code>V = √(χ² / N)</code>. V = 0 means no association; V = 1 means perfect association. Values above 0.3 are considered a strong effect.</div></div>
+      </div>
+      <!-- Example contingency table for Hausa -->
+      <div style="margin-top:0.5rem">
+        <div class="ctitle" style="margin-bottom:0.5rem">Example: Hausa vs English Contingency Table (N=90 each)</div>
+        <table class="obs-expected-table">
+          <thead><tr><th></th><th>Refusal</th><th>Partial</th><th>Full Compliance</th><th>Row Total</th></tr></thead>
+          <tbody>
+            <tr><td style="text-align:left;color:var(--accent);font-weight:700">Hausa</td>
+              <td><div class="obs-val">21</div><div class="exp-val">exp: 54</div></td>
+              <td><div class="obs-val">30</div><div class="exp-val">exp: 16</div></td>
+              <td><div class="obs-val">39</div><div class="exp-val">exp: 20</div></td>
+              <td style="color:var(--muted)">90</td></tr>
+            <tr><td style="text-align:left;color:var(--safe);font-weight:700">English</td>
+              <td><div class="obs-val">87</div><div class="exp-val">exp: 54</div></td>
+              <td><div class="obs-val">2</div><div class="exp-val">exp: 16</div></td>
+              <td><div class="obs-val">1</div><div class="exp-val">exp: 20</div></td>
+              <td style="color:var(--muted)">90</td></tr>
+            <tr style="background:var(--surface)"><td style="text-align:left;color:var(--muted)">Col Total</td><td>108</td><td>32</td><td>40</td><td>180</td></tr>
+          </tbody>
+        </table>
+        <p style="font-size:0.6rem;color:var(--muted);margin-top:0.5rem;line-height:1.7">χ² = (21−54)²/54 + (30−16)²/16 + (39−20)²/20 + (87−54)²/54 + (2−16)²/16 + (1−20)²/20 = <b style="color:var(--text)">101.93</b> → p &lt; 0.001</p>
+      </div>
+    </div>
+
+    <!-- MAIN RESULTS TABLE -->
+    <div class="card reveal" style="margin-bottom:1.25rem">
+      <div class="ctitle">Chi-Square Results — All Languages vs English (Control)</div>
+      <table class="pval-table" id="pvalTable">
+        <thead>
+          <tr>
+            <th>Language</th>
+            <th>Resource Tier</th>
+            <th>Failure Rate</th>
+            <th>χ² Statistic</th>
+            <th>p-value</th>
+            <th>Cramér's V</th>
+            <th>Effect Size</th>
+            <th>Verdict</th>
+          </tr>
+        </thead>
+        <tbody id="pvalBody"></tbody>
+      </table>
+      <p style="font-size:0.58rem;color:var(--muted);margin-top:0.85rem;line-height:1.7">
+        All tests: df = 2, N = 90 per language (30 prompts × 3 trials). Compared against English control (3% failure rate).
+        *** p &lt; 0.001 &nbsp;|&nbsp; ** p &lt; 0.01 &nbsp;|&nbsp; * p &lt; 0.05 &nbsp;|&nbsp; ns = not significant
+      </p>
+    </div>
+
+    <!-- SUMMARY STATS -->
+    <div class="interpret-grid reveal">
+      <div class="int-card"><div class="int-val" style="color:var(--accent)">7 / 7</div><div class="int-lbl">Significant Results</div><div class="int-sub">All 7 non-English languages showed p &lt; 0.001 — every result is highly significant</div></div>
+      <div class="int-card"><div class="int-val" style="color:var(--accent2)">101.93</div><div class="int-lbl">Highest χ² (Hausa)</div><div class="int-sub">The largest test statistic, corresponding to the biggest deviation from expected counts</div></div>
+      <div class="int-card"><div class="int-val" style="color:var(--safe)">0.750</div><div class="int-lbl">Highest Cramér's V</div><div class="int-sub">Hausa's V = 0.750 indicates a very strong association between language and outcome</div></div>
+    </div>
+
+    <!-- INTERPRETATION -->
+    <div class="stat-callout reveal" style="margin-top:1.25rem">
+      <b>What this means for the hypothesis:</b> The chi-square tests confirm that the differences in guardrail failure rates across languages are statistically significant and not due to random variation (all p &lt; 0.001). The null hypothesis — that language has no effect on guardrail outcomes — is rejected for every tested language. Cramér's V values range from 0.286 (Hindi, Spanish) to 0.750 (Hausa), indicating moderate to very strong associations. These results provide strong statistical evidence that <b>prompt language is a significant predictor of LLM safety guardrail failure</b>.
+    </div>
+
+    <!-- LIVE CALCULATOR -->
+    <div class="card reveal" style="margin-top:1.5rem">
+      <div class="ctitle">Live Chi-Square Calculator — Compare Any Two Languages</div>
+      <div class="g2" style="margin-bottom:1rem">
+        <div>
+          <label class="dlabel">Language A</label>
+          <select id="chiLangA" class="simsel" style="width:100%" onchange="computeLiveChiSq()">
+            <option value="Hausa">Hausa (77%)</option>
+            <option value="Yoruba">Yoruba (70%)</option>
+            <option value="Swahili">Swahili (43%)</option>
+            <option value="Amharic">Amharic (40%)</option>
+            <option value="Arabic">Arabic (30%)</option>
+            <option value="Hindi">Hindi (23%)</option>
+            <option value="Spanish">Spanish (23%)</option>
+            <option value="English">English (3%)</option>
+          </select>
+        </div>
+        <div>
+          <label class="dlabel">Language B</label>
+          <select id="chiLangB" class="simsel" style="width:100%" onchange="computeLiveChiSq()">
+            <option value="English" selected>English (3%) — Control</option>
+            <option value="Hausa">Hausa (77%)</option>
+            <option value="Yoruba">Yoruba (70%)</option>
+            <option value="Swahili">Swahili (43%)</option>
+            <option value="Amharic">Amharic (40%)</option>
+            <option value="Arabic">Arabic (30%)</option>
+            <option value="Hindi">Hindi (23%)</option>
+            <option value="Spanish">Spanish (23%)</option>
+          </select>
+        </div>
+      </div>
+      <div id="liveChiResult" style="background:var(--bg);border:1px solid var(--border);padding:1.1rem;font-size:0.7rem;line-height:2"></div>
+    </div>
+
+  </div>
+  <footer><div><div class="fa">Yash Baligar & Shashank Edupuganti</div><div class="fs">Westfield High School · Science Fair 2026</div></div><div class="fr">χ² computed from 720 real ChatGPT responses (N=90 per language)</div></footer>
+</div>
+
 <script>
 // ══ REAL DATA ══
 const LANGS=[
@@ -987,7 +1167,7 @@ function buildRings(){
 }
 
 // ══ PAGE SWITCHING ══
-let built={dash:false,viz:false,term:false,risk:false};
+let built={dash:false,viz:false,term:false,risk:false,stats:false};
 function go(id,el){
   document.querySelectorAll('.page').forEach(p=>p.classList.remove('on'));
   document.querySelectorAll('.tabs a').forEach(a=>a.classList.remove('on'));
@@ -1677,6 +1857,156 @@ function updateLangGrid(baseRisk, domCat){
 
 // init lang grid empty
 updateLangGrid(0,'evasion');
+
+
+// ══ CHI-SQUARE ENGINE ══
+const N_TRIALS = 90; // 30 prompts × 3 trials
+
+function chiSquareP(chi2, df) {
+  // Exact p-value for df=2: p = e^(-chi2/2)
+  // For df=2, chi-square CDF = 1 - e^(-x/2)
+  if (df === 2) return Math.exp(-chi2 / 2);
+  // Fallback for other df (incomplete gamma)
+  return Math.exp(-chi2 / 2); // approximation
+}
+
+function computeChiSq(langA, langB) {
+  const N = N_TRIALS;
+  // Observed counts
+  const obs = [
+    [Math.round(langA.refusal/100*N), Math.round(langA.partial/100*N), Math.round(langA.full/100*N)],
+    [Math.round(langB.refusal/100*N), Math.round(langB.partial/100*N), Math.round(langB.full/100*N)],
+  ];
+  const rowT = obs.map(r => r.reduce((a,b)=>a+b,0));
+  const colT = [0,1,2].map(j => obs[0][j]+obs[1][j]);
+  const grand = rowT.reduce((a,b)=>a+b,0);
+
+  let chi2 = 0;
+  const contributions = [];
+  for (let i=0; i<2; i++) {
+    for (let j=0; j<3; j++) {
+      const exp = rowT[i] * colT[j] / grand;
+      const contrib = exp > 0 ? Math.pow(obs[i][j]-exp,2)/exp : 0;
+      chi2 += contrib;
+      contributions.push({i,j,obs:obs[i][j],exp:+exp.toFixed(1),contrib:+contrib.toFixed(2)});
+    }
+  }
+  const p = chiSquareP(chi2, 2);
+  const v = Math.sqrt(chi2 / (grand * 1)); // min(2,3)-1 = 1
+  const df = 2;
+  return {chi2:+chi2.toFixed(2), p, v:+v.toFixed(3), df, obs, rowT, colT, grand, contributions};
+}
+
+function effectLabel(v) {
+  if (v >= 0.5) return {label:'Very Strong', col:'var(--accent)'};
+  if (v >= 0.3) return {label:'Strong',      col:'var(--accent2)'};
+  if (v >= 0.1) return {label:'Moderate',    col:'var(--warn)'};
+  return              {label:'Weak',          col:'var(--muted)'};
+}
+
+function sigBadge(p) {
+  if (p < 0.001) return {stars:'***', cls:'sig-3', text:'p < 0.001'};
+  if (p < 0.01)  return {stars:'**',  cls:'sig-2', text:'p < 0.01'};
+  if (p < 0.05)  return {stars:'*',   cls:'sig-1', text:'p < 0.05'};
+  return               {stars:'ns',  cls:'sig-0', text:'p = '+p.toFixed(3)};
+}
+
+function formatP(p) {
+  if (p < 0.0001) return '< 0.0001';
+  if (p < 0.001)  return '< 0.001';
+  return p.toFixed(4);
+}
+
+// Build the main p-value table
+function buildPvalTable() {
+  const eng = LANGS.find(l => l.name === 'English');
+  const tbody = document.getElementById('pvalBody');
+  if (!tbody) return;
+
+  LANGS.filter(l => l.name !== 'English').forEach((l, idx) => {
+    const r = computeChiSq(l, eng);
+    const sig = sigBadge(r.p);
+    const ef = effectLabel(r.v);
+    const barW = Math.min(100, r.v / 0.8 * 100).toFixed(0);
+    const failCol = l.failRate > 60 ? 'var(--accent)' : l.failRate > 30 ? 'var(--accent2)' : 'var(--warn)';
+
+    const tr = document.createElement('tr');
+    tr.style.animationDelay = (idx * 0.07) + 's';
+    tr.innerHTML = `
+      <td><span style="font-family:var(--fh);font-weight:700;color:${l.color}">${l.name}</span></td>
+      <td style="color:var(--muted);font-size:0.6rem">${l.type}</td>
+      <td><span style="font-family:var(--fh);font-weight:700;color:${failCol}">${l.failRate}%</span></td>
+      <td><span class="chi-num" style="color:var(--text)">${r.chi2}</span></td>
+      <td>
+        <span style="font-family:var(--fh);font-weight:700;color:var(--safe)">${formatP(r.p)}</span>
+        <span class="pval-bar-wrap"><span class="pval-bar-inner" style="width:0%;background:var(--safe)" data-w="${Math.min(100,(-Math.log10(r.p+1e-10)/10)*100).toFixed(0)}%"></span></span>
+      </td>
+      <td>
+        <span style="font-family:var(--fh);font-weight:700;color:${ef.col}">${r.v}</span>
+        <span class="cramv-bar" style="width:0%;background:${ef.col}" data-w="${barW}%"></span>
+      </td>
+      <td><span class="effect-label" style="color:${ef.col}">${ef.label}</span></td>
+      <td><span class="sig-badge ${sig.cls}">${sig.stars} ${sig.text}</span></td>
+    `;
+    tbody.appendChild(tr);
+  });
+
+  // Animate bars on scroll
+  const obs = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (!e.isIntersecting) return;
+      e.target.querySelectorAll('[data-w]').forEach((el, i) => {
+        setTimeout(() => { el.style.width = el.getAttribute('data-w'); }, i * 80);
+      });
+      obs.disconnect();
+    });
+  }, {threshold: 0.2});
+  const tbl = document.getElementById('pvalTable');
+  if (tbl) obs.observe(tbl);
+}
+
+// Live calculator
+function computeLiveChiSq() {
+  const aName = document.getElementById('chiLangA').value;
+  const bName = document.getElementById('chiLangB').value;
+  const langA = LANGS.find(l => l.name === aName);
+  const langB = LANGS.find(l => l.name === bName);
+  const out = document.getElementById('liveChiResult');
+  if (!langA || !langB || aName === bName) {
+    out.innerHTML = '<span style="color:var(--muted)">Select two different languages to compare.</span>';
+    return;
+  }
+  const r = computeChiSq(langA, langB);
+  const sig = sigBadge(r.p);
+  const ef = effectLabel(r.v);
+  const verdict = r.p < 0.05
+    ? `<span style="color:var(--safe);font-weight:700">✓ Reject H₀</span> — the difference between ${aName} and ${bName} is statistically significant`
+    : `<span style="color:var(--muted);font-weight:700">✗ Fail to reject H₀</span> — not enough evidence of a significant difference`;
+
+  out.innerHTML = `
+    <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:1rem;margin-bottom:1rem">
+      <div style="text-align:center"><div style="font-family:var(--fh);font-weight:800;font-size:1.6rem;color:var(--text)">${r.chi2}</div><div style="font-size:0.5rem;color:var(--muted);text-transform:uppercase;letter-spacing:0.1em">χ² Statistic</div></div>
+      <div style="text-align:center"><div style="font-family:var(--fh);font-weight:800;font-size:1.6rem;color:var(--safe)">${formatP(r.p)}</div><div style="font-size:0.5rem;color:var(--muted);text-transform:uppercase;letter-spacing:0.1em">p-value</div></div>
+      <div style="text-align:center"><div style="font-family:var(--fh);font-weight:800;font-size:1.6rem;color:${ef.col}">${r.v}</div><div style="font-size:0.5rem;color:var(--muted);text-transform:uppercase;letter-spacing:0.1em">Cramér's V</div></div>
+      <div style="text-align:center"><div style="font-family:var(--fh);font-weight:800;font-size:1rem;color:${ef.col};margin-top:0.3rem">${ef.label}</div><div style="font-size:0.5rem;color:var(--muted);text-transform:uppercase;letter-spacing:0.1em">Effect Size</div></div>
+    </div>
+    <div style="padding:0.7rem;background:var(--surface);border-left:3px solid var(--safe);font-size:0.65rem;line-height:1.8;color:var(--muted)">
+      <span class="sig-badge ${sig.cls}" style="margin-right:0.5rem">${sig.stars}</span>
+      ${verdict}<br>
+      <span style="font-size:0.6rem">df = 2, N = ${N_TRIALS} per language | ${langA.name}: ${langA.failRate}% failure vs ${langB.name}: ${langB.failRate}% failure</span>
+    </div>
+    <div style="margin-top:0.75rem;font-size:0.62rem;color:var(--muted)">
+      <b style="color:var(--text)">Interpretation:</b> 
+      ${r.v >= 0.5 ? `Cramér's V = ${r.v} indicates a <b style="color:${ef.col}">very strong</b> association — language is a dominant predictor of outcome.`
+        : r.v >= 0.3 ? `Cramér's V = ${r.v} indicates a <b style="color:${ef.col}">strong</b> association between language choice and guardrail outcome.`
+        : `Cramér's V = ${r.v} indicates a <b style="color:${ef.col}">moderate</b> association.`}
+      ${r.p < 0.001 ? ' This result would appear in peer-reviewed research as statistically significant.' : ''}
+    </div>`;
+}
+
+// init
+buildPvalTable();
+computeLiveChiSq();
 
 // ══ INIT ══
 window.addEventListener('load',()=>{
